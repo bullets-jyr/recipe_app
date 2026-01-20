@@ -5,15 +5,11 @@ import 'package:flutter_recipe_app_course/core/presentation/components/input_fie
 import 'package:flutter_recipe_app_course/core/presentation/components/rating_button.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/two_tab.dart';
 import 'package:flutter_recipe_app_course/core/presentation/dialogs/rating_dialog.dart';
-import 'package:flutter_recipe_app_course/data/repository/mock_bookmark_repository_impl.dart';
-import 'package:flutter_recipe_app_course/data/repository/mock_recipe_repository_impl.dart';
-import 'package:flutter_recipe_app_course/domain/use_case/get_saved_recipes_use_case.dart';
-import 'package:flutter_recipe_app_course/presentation/saved_recipes/saved_recipes_screen.dart';
+import 'package:flutter_recipe_app_course/core/routing/router.dart';
 import 'package:flutter_recipe_app_course/ui/text_styles.dart';
 
 import 'core/presentation/components/medium_button.dart';
 import 'core/presentation/components/small_button.dart';
-import 'domain/model/recipe.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,29 +21,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: router,
       title: 'Flutter Demo',
       theme: ThemeData(
-        // AppBar
         colorScheme: const ColorScheme.light(),
-        // Scaffold
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
-      ),
-      home: FutureBuilder<List<Recipe>>(
-        future: GetSavedRecipesUseCase(
-          recipeRepository: MockRecipeRepositoryImpl(),
-          bookmarkRepository: MockBookmarkRepositoryImpl(),
-        ).execute(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          final recipes = snapshot.data!;
-
-          return SavedRecipesScreen(recipes: recipes);
-        },
       ),
     );
   }
