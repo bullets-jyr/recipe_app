@@ -2,7 +2,6 @@ import 'package:flutter_recipe_app_course/data/data_source/local/default_local_s
 import 'package:flutter_recipe_app_course/data/data_source/local_storage.dart';
 import 'package:flutter_recipe_app_course/data/data_source/recipe_data_source.dart';
 import 'package:flutter_recipe_app_course/data/data_source/remote/remote_recipe_data_source_impl.dart';
-import 'package:flutter_recipe_app_course/data/repository/error_mock_recipe_repository_impl.dart';
 import 'package:flutter_recipe_app_course/data/repository/mock_bookmark_repository_impl.dart';
 import 'package:flutter_recipe_app_course/data/repository/mock_recent_search_recipe_repository_impl.dart';
 import 'package:flutter_recipe_app_course/data/repository/mock_recipe_repository_impl.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_recipe_app_course/domain/repository/recent_search_recipe
 import 'package:flutter_recipe_app_course/domain/repository/recipe_repository.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_categories_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_dishes_by_category_use_case.dart';
+import 'package:flutter_recipe_app_course/domain/use_case/get_new_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_saved_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/search_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/presentation/home/home_view_model.dart';
@@ -27,9 +27,6 @@ void diSetup() {
 
   // Repository
   getIt.registerSingleton<RecipeRepository>(
-    // ErrorMockRecipeRepositoryImpl(
-    //   recipeDataSource: getIt(),
-    // ),
     MockRecipeRepositoryImpl(
       recipeDataSource: getIt(),
     ),
@@ -64,23 +61,29 @@ void diSetup() {
       recipeRepository: getIt(),
     ),
   );
+  getIt.registerSingleton(
+    GetNewRecipesUseCase(
+      recipeRepository: getIt(),
+    ),
+  );
 
   // ViewModel
   getIt.registerFactory<SavedRecipesViewModel>(
-    () => SavedRecipesViewModel(
+        () => SavedRecipesViewModel(
       getSavedRecipesUseCase: getIt(),
     ),
   );
   getIt.registerFactory<SearchViewModel>(
-    () => SearchViewModel(
+        () => SearchViewModel(
       recentSearchRecipeRepository: getIt(),
       searchRecipesUseCase: getIt(),
     ),
   );
   getIt.registerFactory<HomeViewModel>(
-    () => HomeViewModel(
+        () => HomeViewModel(
       getCategoriesUseCase: getIt(),
       getDishesByCategoryUseCase: getIt(),
+      getNewRecipesUseCase: getIt(),
     ),
   );
 }
