@@ -1,3 +1,4 @@
+import 'package:flutter_recipe_app_course/domain/model/recipe.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_state.freezed.dart';
@@ -7,10 +8,12 @@ part 'home_state.freezed.dart';
 class HomeState with _$HomeState {
   final List<String> categories;
   final String selectedCategory;
+  final List<Recipe> dishes;
 
   HomeState({
     this.categories = const [],
     this.selectedCategory = 'All',
+    this.dishes = const [],
   });
 }
 
