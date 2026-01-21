@@ -10,12 +10,14 @@ class HomeState with _$HomeState {
   final String selectedCategory;
   final List<Recipe> dishes;
   final List<Recipe> newRecipes;
+  final String name;
 
   HomeState({
     this.categories = const [],
     this.selectedCategory = 'All',
     this.dishes = const [],
     this.newRecipes = const [],
+    this.name = '',
   });
 }
 
