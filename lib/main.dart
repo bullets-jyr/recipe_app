@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_recipe_app_course/core/di/di_setup.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/big_button.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/filter_button.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/input_field.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_recipe_app_course/core/presentation/dialogs/rating_dialo
 import 'package:flutter_recipe_app_course/core/routing/router.dart';
 import 'package:flutter_recipe_app_course/ui/text_styles.dart';
 
+import 'core/di/di_setup.dart';
 import 'core/presentation/components/medium_button.dart';
 import 'core/presentation/components/small_button.dart';
 
@@ -51,9 +51,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          const SearchInputField(
-            placeHolder: 'PlaceHolder',
-          ),
+          const SearchInputField(placeHolder: 'PlaceHolder'),
           ElevatedButton(
             onPressed: () {
               showDialog(
@@ -61,7 +59,6 @@ class MyHomePage extends StatelessWidget {
                 builder: (_) {
                   return RatingDialog(
                     title: 'Rate recipe',
-                    score: 3,
                     actionName: 'Send',
                     onChange: (score) {
                       print(score);
