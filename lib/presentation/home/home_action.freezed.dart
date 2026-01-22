@@ -55,12 +55,13 @@ extension HomeActionPatterns on HomeAction {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( OnTapSearchField value)?  onTapSearchField,TResult Function( OnSelectCategory value)?  onSelectCategory,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( OnTapSearchField value)?  onTapSearchField,TResult Function( OnSelectCategory value)?  onSelectCategory,TResult Function( OnTapFavorite value)?  onTapFavorite,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case OnTapSearchField() when onTapSearchField != null:
 return onTapSearchField(_that);case OnSelectCategory() when onSelectCategory != null:
-return onSelectCategory(_that);case _:
+return onSelectCategory(_that);case OnTapFavorite() when onTapFavorite != null:
+return onTapFavorite(_that);case _:
   return orElse();
 
 }
@@ -78,12 +79,13 @@ return onSelectCategory(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( OnTapSearchField value)  onTapSearchField,required TResult Function( OnSelectCategory value)  onSelectCategory,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( OnTapSearchField value)  onTapSearchField,required TResult Function( OnSelectCategory value)  onSelectCategory,required TResult Function( OnTapFavorite value)  onTapFavorite,}){
 final _that = this;
 switch (_that) {
 case OnTapSearchField():
 return onTapSearchField(_that);case OnSelectCategory():
-return onSelectCategory(_that);}
+return onSelectCategory(_that);case OnTapFavorite():
+return onTapFavorite(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -97,12 +99,13 @@ return onSelectCategory(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( OnTapSearchField value)?  onTapSearchField,TResult? Function( OnSelectCategory value)?  onSelectCategory,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( OnTapSearchField value)?  onTapSearchField,TResult? Function( OnSelectCategory value)?  onSelectCategory,TResult? Function( OnTapFavorite value)?  onTapFavorite,}){
 final _that = this;
 switch (_that) {
 case OnTapSearchField() when onTapSearchField != null:
 return onTapSearchField(_that);case OnSelectCategory() when onSelectCategory != null:
-return onSelectCategory(_that);case _:
+return onSelectCategory(_that);case OnTapFavorite() when onTapFavorite != null:
+return onTapFavorite(_that);case _:
   return null;
 
 }
@@ -119,11 +122,12 @@ return onSelectCategory(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  onTapSearchField,TResult Function( String category)?  onSelectCategory,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  onTapSearchField,TResult Function( String category)?  onSelectCategory,TResult Function( Recipe recipe)?  onTapFavorite,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case OnTapSearchField() when onTapSearchField != null:
 return onTapSearchField();case OnSelectCategory() when onSelectCategory != null:
-return onSelectCategory(_that.category);case _:
+return onSelectCategory(_that.category);case OnTapFavorite() when onTapFavorite != null:
+return onTapFavorite(_that.recipe);case _:
   return orElse();
 
 }
@@ -141,11 +145,12 @@ return onSelectCategory(_that.category);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  onTapSearchField,required TResult Function( String category)  onSelectCategory,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  onTapSearchField,required TResult Function( String category)  onSelectCategory,required TResult Function( Recipe recipe)  onTapFavorite,}) {final _that = this;
 switch (_that) {
 case OnTapSearchField():
 return onTapSearchField();case OnSelectCategory():
-return onSelectCategory(_that.category);}
+return onSelectCategory(_that.category);case OnTapFavorite():
+return onTapFavorite(_that.recipe);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -159,11 +164,12 @@ return onSelectCategory(_that.category);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  onTapSearchField,TResult? Function( String category)?  onSelectCategory,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  onTapSearchField,TResult? Function( String category)?  onSelectCategory,TResult? Function( Recipe recipe)?  onTapFavorite,}) {final _that = this;
 switch (_that) {
 case OnTapSearchField() when onTapSearchField != null:
 return onTapSearchField();case OnSelectCategory() when onSelectCategory != null:
-return onSelectCategory(_that.category);case _:
+return onSelectCategory(_that.category);case OnTapFavorite() when onTapFavorite != null:
+return onTapFavorite(_that.recipe);case _:
   return null;
 
 }
@@ -267,6 +273,81 @@ as String,
 }
 
 
+}
+
+/// @nodoc
+
+
+class OnTapFavorite implements HomeAction {
+  const OnTapFavorite(this.recipe);
+  
+
+ final  Recipe recipe;
+
+/// Create a copy of HomeAction
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OnTapFavoriteCopyWith<OnTapFavorite> get copyWith => _$OnTapFavoriteCopyWithImpl<OnTapFavorite>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnTapFavorite&&(identical(other.recipe, recipe) || other.recipe == recipe));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,recipe);
+
+@override
+String toString() {
+  return 'HomeAction.onTapFavorite(recipe: $recipe)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $OnTapFavoriteCopyWith<$Res> implements $HomeActionCopyWith<$Res> {
+  factory $OnTapFavoriteCopyWith(OnTapFavorite value, $Res Function(OnTapFavorite) _then) = _$OnTapFavoriteCopyWithImpl;
+@useResult
+$Res call({
+ Recipe recipe
+});
+
+
+$RecipeCopyWith<$Res> get recipe;
+
+}
+/// @nodoc
+class _$OnTapFavoriteCopyWithImpl<$Res>
+    implements $OnTapFavoriteCopyWith<$Res> {
+  _$OnTapFavoriteCopyWithImpl(this._self, this._then);
+
+  final OnTapFavorite _self;
+  final $Res Function(OnTapFavorite) _then;
+
+/// Create a copy of HomeAction
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? recipe = null,}) {
+  return _then(OnTapFavorite(
+null == recipe ? _self.recipe : recipe // ignore: cast_nullable_to_non_nullable
+as Recipe,
+  ));
+}
+
+/// Create a copy of HomeAction
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RecipeCopyWith<$Res> get recipe {
+  
+  return $RecipeCopyWith<$Res>(_self.recipe, (value) {
+    return _then(_self.copyWith(recipe: value));
+  });
+}
 }
 
 // dart format on
